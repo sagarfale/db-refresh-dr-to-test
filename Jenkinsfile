@@ -1,12 +1,16 @@
 pipeline {
     agent any
-     parameters {
-        string description: 'Pl enter source db name', name: 'SOURCE_DB_NAME', trim: true
+    
+    parameters {
+        string(name: 'firstParam', description: 'Enter the value for first parameter')
+        string(name: 'secondParam', description: 'Enter the value for second parameter')
     }
+    
     stages {
-        stage('SOURCE_DB_NAME') {
+        stage('Display Parameters') {
             steps {
-                echo $SOURCE_DB_NAME
+                echo "First Parameter: ${params.firstParam}"
+                echo "Second Parameter: ${params.secondParam}"
             }
         }
     }
