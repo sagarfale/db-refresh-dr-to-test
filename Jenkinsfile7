@@ -21,13 +21,10 @@ pipeline {
                 echo "PATH=${PATH}" >> /tmp/target-db.env
                 echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> /tmp/target-db.env
                 echo "ORACLE_SID=${params.TARGET_DB_NAME}"  >> /tmp/target-db.env
-                echo "SOURCE_DB_NAME=${params.SOURCE_DB_NAME}" >> /tmp/target-db.env
-                echo "TARGET_DB_NAME=${params.TARGET_DB_NAME}" >> /tmp/target-db.env
                 echo "SOURCE_DB_NAME1=${SOURCE_DB_NAME1}" >> /tmp/target-db.env
                 echo "TARGET_DB_NAME1=${TARGET_DB_NAME1}" >> /tmp/target-db.env
                 '''
             }
         }
 }
-
 
