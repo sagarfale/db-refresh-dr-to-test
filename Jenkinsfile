@@ -24,7 +24,7 @@ pipeline {
                 echo "ORACLE_SID: ${env.ORACLE_SID}"
 		echo "First Parameter: ${params.firstParam}"
                 echo "Second Parameter: ${params.TARGET_DB_NAME}"
-		echo "SOURCE_DB_NAME1 : ${env.SOURCE_DB_NAME1}
+		echo "SOURCE_DB_NAME1 : ${env.SOURCE_DB_NAME1}"
 		echo "TARGET_DB_NAME1 : ${env.TARGET_DB_NAME1}"
             }
         }
