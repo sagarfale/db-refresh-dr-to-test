@@ -11,7 +11,7 @@ pipeline {
         LD_LIBRARY_PATH = "${env.ORACLE_HOME}/lib:${env.PATH}"
         ORACLE_SID = 'euprod'
 	SOURCE_DB_NAME1 = "${params.SOURCE_DB_NAME}"
-	TARGET_DB_NAME1 = "${TARGET_DB_NAME}"
+	TARGET_DB_NAME1 = "${params.TARGET_DB_NAME}"
     }
     
     stages {
