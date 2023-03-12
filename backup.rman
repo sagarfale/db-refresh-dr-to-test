@@ -1,0 +1,4 @@
+run {
+duplicate database EUTEST from active database;
+}
+
