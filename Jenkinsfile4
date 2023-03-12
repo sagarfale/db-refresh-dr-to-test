@@ -8,8 +8,7 @@ pipeline {
         ORACLE_HOME = '/home/ora19c/ora19c_home'
         ORACLE_BASE = '/home/ora19c/ora19c_base'
         PATH = "${ORACLE_HOME}/bin:${PATH}"
-        LD_LIBRARY_PATH = "${ORACLE_HOME}/lib:${LD_LIBRARY_PATH}"
-        ORACLE_SID = 'euprod'
+        LD_LIBRARY_PATH = "${ORACLE_HOME}/lib:${PATH}"
         SOURCE_DB_NAME1 = "${params.SOURCE_DB_NAME}"
         TARGET_DB_NAME1 = "${params.TARGET_DB_NAME}"
     }
