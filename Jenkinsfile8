@@ -51,7 +51,7 @@ pipeline {
                 sh '''
                 cat /tmp/target-db.env > clone.DBtemp.sh
                 cat rman_clone.sh >> clone.DBtemp.sh
-                scp clone.DBtemp.sh ora19c@192.168.29.72:/tmp
+                scp backup.rman clone.DBtemp.sh ora19c@192.168.29.72:/tmp
                 ssh ora19c@192.168.29.72 sh /tmp/clone.DBtemp.sh
                 '''
             }
