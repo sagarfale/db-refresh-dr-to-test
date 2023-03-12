@@ -44,8 +44,8 @@ pipeline {
         stage('ShutDownTarget') {
                 steps {
                     sh '''
-                    cat /tmp/target-db.env  > shutdown_db_taregt.sh
-                    cat shutdownDB.sh >> shutdown_db_taregt.sh
+                    cat /tmp/target-db.env  > shutdown_db_target.sh
+                    cat shutdownDB.sh >> shutdown_db_target.sh
                     '''
                 }
             }       
