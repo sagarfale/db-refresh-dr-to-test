@@ -1,4 +1,4 @@
-rman target rman_backup/rman_backup@${SOURCE_DB_NAME1} auxiliary /
+rman target rman_backup/rman_backup@EUPROD auxiliary /
 {
-duplicate database to ${TARGET_DB_NAME1} FROM ACTIVE DATABASE;
+duplicate database to EUTEST FROM ACTIVE DATABASE;
 }
