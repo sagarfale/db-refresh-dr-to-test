@@ -12,43 +12,43 @@ pipeline {
         SOURCE_DB_NAME1 = "${params.SOURCE_DB_NAME}"
         TARGET_DB_NAME1 = "${params.TARGET_DB_NAME}"
     }
-    stages{
+    stages {
         stage('CreatingEnvFile1') {
-                steps {
-                    sh "echo ORACLE_HOME=${ORACLE_HOME} > /tmp/target-db.env"
-                    sh "echo ORACLE_BASE=${ORACLE_BASE} >> /tmp/target-db.env"
-                    sh "echo PATH=${PATH} >> /tmp/target-db.env"
-                    sh "echo LD_LIBRARY_PATH=${LD_LIBRARY_PATH} >> /tmp/target-db.env"
-                    sh "echo ORACLE_SID=${params.TARGET_DB_NAME} >> /tmp/target-db.env"
-                    sh "echo SOURCE_DB_NAME: ${params.SOURCE_DB_NAME}"
-                    sh "echo TARGET_DB_NAME: ${params.TARGET_DB_NAME}"
-                    sh "echo SOURCE_DB_NAME1: ${SOURCE_DB_NAME1}"
-                    sh "echo TARGET_DB_NAME1: ${TARGET_DB_NAME1}"
-                }
+            steps {
+                sh "echo ORACLE_HOME=${ORACLE_HOME} > /tmp/target-db.env"
+                sh "echo ORACLE_BASE=${ORACLE_BASE} >> /tmp/target-db.env"
+                sh "echo PATH=${PATH} >> /tmp/target-db.env"
+                sh "echo LD_LIBRARY_PATH=${LD_LIBRARY_PATH} >> /tmp/target-db.env"
+                sh "echo ORACLE_SID=${params.TARGET_DB_NAME} >> /tmp/target-db.env"
+                sh "echo SOURCE_DB_NAME: ${params.SOURCE_DB_NAME}"
+                sh "echo TARGET_DB_NAME: ${params.TARGET_DB_NAME}"
+                sh "echo SOURCE_DB_NAME1: ${SOURCE_DB_NAME1}"
+                sh "echo TARGET_DB_NAME1: ${TARGET_DB_NAME1}"
             }
-        stage('CreatingEnvFile2') {
-                steps {
-                    sh '''
-                    echo "ORACLE_HOME=${ORACLE_HOME}" > /tmp/target-db.env
-                    echo "ORACLE_BASE=${ORACLE_BASE}" >> /tmp/target-db.env
-                    echo "PATH=${PATH}" >> /tmp/target-db.env
-                    echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> /tmp/target-db.env
-                    echo "ORACLE_SID=${params.TARGET_DB_NAME}"  >> /tmp/target-db.env
-                    echo "SOURCE_DB_NAME=${params.SOURCE_DB_NAME}" >> /tmp/target-db.env
-                    echo "TARGET_DB_NAME=${params.TARGET_DB_NAME}" >> /tmp/target-db.env
-                    echo "SOURCE_DB_NAME1=${SOURCE_DB_NAME1}" >> /tmp/target-db.env
-                    echo "TARGET_DB_NAME1=${TARGET_DB_NAME1}" >> /tmp/target-db.env
-                    '''
-                }
-            }          
-        stage('ShutDownTarget') {
-                steps {
-                    sh '''
-                    cat /tmp/target-db.env  > shutdown_db_target.sh
-                    cat shutdownDB.sh >> shutdown_db_target.sh
-                    '''
-                }
-            }       
         }
+        stage('CreatingEnvFile2') {
+            steps {
+                sh '''
+                echo "ORACLE_HOME=${ORACLE_HOME}" > /tmp/target-db.env
+                echo "ORACLE_BASE=${ORACLE_BASE}" >> /tmp/target-db.env
+                echo "PATH=${PATH}" >> /tmp/target-db.env
+                echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> /tmp/target-db.env
+                echo "ORACLE_SID=${params.TARGET_DB_NAME}"  >> /tmp/target-db.env
+                echo "SOURCE_DB_NAME=${params.SOURCE_DB_NAME}" >> /tmp/target-db.env
+                echo "TARGET_DB_NAME=${params.TARGET_DB_NAME}" >> /tmp/target-db.env
+                echo "SOURCE_DB_NAME1=${SOURCE_DB_NAME1}" >> /tmp/target-db.env
+                echo "TARGET_DB_NAME1=${TARGET_DB_NAME1}" >> /tmp/target-db.env
+                '''
+            }
+        }
+        stage('ShutDownTarget') {
+            steps {
+                sh '''
+                cat /tmp/target-db.env  > shutdown_db_target.sh
+                cat shutdownDB.sh >> shutdown_db_target.sh
+                '''
+            }
+        }       
+    }
 }
 
