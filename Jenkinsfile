@@ -3,18 +3,7 @@ pipeline {
   stages {
     stage ("Prompt for input") {
       steps {
-        script {
-          env.SOURCE_DB = input message: 'Please enter the username',
-                             parameters: [string(defaultValue: '',
-                                          description: '',
-                                          name: 'SOURCE DB NAME')]
-          env.TARGET_DB = input message: 'Please enter the password',
-                             parameters: [password(defaultValue: '',
-                                          description: '',
-                                          name: 'TARGET DB NAME')]
-        }
-        echo "SOURCE_DB: ${env.SOURCE_DB}"
-        echo "TARGET_DB: ${env.TARGET_DB}"
+       sh "echo hi"
       }
     }
   }
