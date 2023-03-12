@@ -16,13 +16,13 @@ pipeline {
         stage('CreatingEnvFile') {
             steps {
                 sh '''
-                echo "ORACLE_HOME=${ORACLE_HOME}" > /tmp/target-db.env
-                echo "ORACLE_BASE=${ORACLE_BASE}" >> /tmp/target-db.env
-                echo "PATH=${PATH}" >> /tmp/target-db.env
-                echo "ORACLE_SID=${TARGET_DB_NAME1}" >> /tmp/target-db.env
-                echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> /tmp/target-db.env
-                echo "SOURCE_DB_NAME1=${SOURCE_DB_NAME1}" >> /tmp/target-db.env
-                echo "TARGET_DB_NAME1=${TARGET_DB_NAME1}" >> /tmp/target-db.env
+                echo "export ORACLE_HOME=${ORACLE_HOME}" > /tmp/target-db.env
+                echo "export ORACLE_BASE=${ORACLE_BASE}" >> /tmp/target-db.env
+                echo "export PATH=${PATH}" >> /tmp/target-db.env
+                echo "export ORACLE_SID=${TARGET_DB_NAME1}" >> /tmp/target-db.env
+                echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> /tmp/target-db.env
+                echo "export SOURCE_DB_NAME1=${SOURCE_DB_NAME1}" >> /tmp/target-db.env
+                echo "export TARGET_DB_NAME1=${TARGET_DB_NAME1}" >> /tmp/target-db.env
                 '''
             }
         }
