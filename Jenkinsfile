@@ -9,7 +9,7 @@ pipeline {
                                           description: '',
                                           name: 'SOURCE DB NAME')]
           env.TARGET_DB = input message: 'Please enter the TARGET_DB',
-                             parameters: [password(defaultValue: '',
+                             parameters: [string(defaultValue: '',
                                           description: '',
                                           name: 'TARGET DB NAME')]
         }
