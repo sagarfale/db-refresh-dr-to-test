@@ -36,7 +36,7 @@ pipeline {
                 '''
             }
         }    
-        stage('StartDBN-NOMount') {
+        stage('StartDB-NOMount') {
             steps {
                 sh '''
                 cat /tmp/target-db.env > startupnomount.DBtemp.sh
