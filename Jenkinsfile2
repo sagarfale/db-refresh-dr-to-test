@@ -4,8 +4,10 @@ pipeline {
   stages {
     stage('Test SSH Connectivity') {
       steps {
-        withCredentials([sshUserPrivateKey(credentialsId: 'refresh_ora19c_target_db_host', keyFileVariable: 'SSH_KEY_FILE', passphraseVariable: 'SSH_PASSPHRASE')]) {
-          sh 'ssh -i $SSH_KEY_FILE -o StrictHostKeyChecking=no -o BatchMode=yes ora19c@192.168.29.72 echo "SSH connection successful."'
+        withCredentials([sshUserPrivateKey(credentialsId: 'refresh_ora19c_target_db_host', keyFileVariable: 'SSH_KEY_FILE')]) {
+          maskSecrets(maskedVars: ['SSH_KEY_FILE']) {
+            sh 'ssh -i $SSH_KEY_FILE -o StrictHostKeyChecking=no -o BatchMode=yes ora19c@192.168.29.72 echo "SSH connection successful."'
+          }
         }
       }
     }
