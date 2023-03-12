@@ -39,8 +39,9 @@ pipeline {
             echo "TARGET_DB_NAME: ${params.TARGET_DB_NAME}"
             echo "SOURCE_DB_NAME1: ${SOURCE_DB_NAME1}"
             echo "TARGET_DB_NAME1: ${TARGET_DB_NAME1}"
-            }
         }
+    }
+
 
         stage('SSH into server') {
             steps {
