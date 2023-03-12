@@ -24,6 +24,7 @@ pipeline {
                 echo "export SOURCE_DB_NAME1=${SOURCE_DB_NAME1}" >> /tmp/target-db.env
                 echo "export TARGET_DB_NAME1=${TARGET_DB_NAME1}" >> /tmp/target-db.env
                 '''
+                slackSend channel: 'devops-notifications', message: 'this is CreatingEnvFile stage'
             }
         }
         stage('StopTargetDB') {
@@ -34,6 +35,7 @@ pipeline {
                 scp shutdown.DBtemp.sh ora19c@192.168.29.72:/tmp
                 ssh ora19c@192.168.29.72 sh /tmp/shutdown.DBtemp.sh
                 '''
+                slackSend channel: 'devops-notifications', message: 'this is StopTargetDB stage'
             }
         }    
         stage('StartDB-NOMount') {
@@ -44,6 +46,7 @@ pipeline {
                 scp startupnomount.DBtemp.sh ora19c@192.168.29.72:/tmp
                 ssh ora19c@192.168.29.72 sh /tmp/startupnomount.DBtemp.sh
                 '''
+                slackSend channel: 'devops-notifications', message: 'this is StartDB-NOMount stage'
             }
         }
         stage('RMAN-Clone') {
@@ -54,8 +57,21 @@ pipeline {
                 scp backup.rman clone.DBtemp.sh ora19c@192.168.29.72:/tmp
                 ssh ora19c@192.168.29.72 sh /tmp/clone.DBtemp.sh
                 '''
+                slackSend channel: 'devops-notifications', message: 'this is RMAN-Clone stage'
             }
         }        
     }
+    post{
+        always{
+            echo "========always========"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+}
 }
 
