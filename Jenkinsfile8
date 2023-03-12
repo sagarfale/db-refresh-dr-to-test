@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'SOURCE_DB_NAME', description: 'Enter the value for source db name parameter', defaultValue: 'EUPROD')
+        string(name: 'TARGET_DB_NAME', description: 'Enter the value for target db name parameter', defaultValue: 'EUTEST')
+    }
+    environment {
+        ORACLE_HOME = '/home/ora19c/ora19c_home'
+        ORACLE_BASE = '/home/ora19c/ora19c_base'
+        PATH = "${ORACLE_HOME}/bin:${PATH}"
+        LD_LIBRARY_PATH = "${ORACLE_HOME}/lib:${PATH}"
+        SOURCE_DB_NAME1 = "${params.SOURCE_DB_NAME}"
+        TARGET_DB_NAME1 = "${params.TARGET_DB_NAME}"
+    }
+    stages{
+        stage('CreatingEnvFile') {
+            steps {
+                sh '''
+                echo "ORACLE_HOME=${ORACLE_HOME}" > /tmp/target-db.env
+                echo "ORACLE_BASE=${ORACLE_BASE}" >> /tmp/target-db.env
+                echo "PATH=${PATH}" >> /tmp/target-db.env
+                echo "ORACLE_SID=${TARGET_DB_NAME1}" >> /tmp/target-db.env
+                echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> /tmp/target-db.env
+                echo "SOURCE_DB_NAME1=${SOURCE_DB_NAME1}" >> /tmp/target-db.env
+                echo "TARGET_DB_NAME1=${TARGET_DB_NAME1}" >> /tmp/target-db.env
+                '''
+            }
+        }
+        stage('StopTargetDB') {
+            steps {
+                sh '''
+                cat /tmp/target-db.env > shutdown.DBtemp.sh
+                cat shutdownDB.sh >> shutdown.DBtemp.sh
+                scp shutdown.DBtemp.sh ora19c@192.168.29.72:/tmp
+                ssh ora19c@192.168.29.72 sh /tmp/shutdown.DBtemp.sh
+                '''
+            }
+        }
+    }
+}
+
