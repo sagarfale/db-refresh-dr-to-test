@@ -13,50 +13,20 @@ pipeline {
         SOURCE_DB_NAME1 = "${params.SOURCE_DB_NAME}"
         TARGET_DB_NAME1 = "${params.TARGET_DB_NAME}"
     }
-
-    stages {
-        stage('Display Environment Variables') {
-            steps {
-                echo "ORACLE_HOME: ${ORACLE_HOME}"
-                echo "ORACLE_BASE: ${ORACLE_BASE}"
-                echo "PATH: ${PATH}"
-                echo "LD_LIBRARY_PATH: ${LD_LIBRARY_PATH}"
-                echo "ORACLE_SID: ${ORACLE_SID}"
-                echo "SOURCE_DB_NAME: ${params.SOURCE_DB_NAME}"
-                echo "TARGET_DB_NAME: ${params.TARGET_DB_NAME}"
-                echo "SOURCE_DB_NAME1: ${SOURCE_DB_NAME1}"
-                echo "TARGET_DB_NAME1: ${TARGET_DB_NAME1}"
-            }
-        }
-    stage('CreatingEnvFile') {
-        steps {
-                echo "ORACLE_HOME=${ORACLE_HOME}" > /tmp/target-db.env
-                echo "ORACLE_BASE=${ORACLE_BASE}" >> /tmp/target-db.env
-                echo "PATH=${PATH}" >> /tmp/target-db.env
-                echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> /tmp/target-db.env
-                echo "SOURCE_DB_NAME=${params.SOURCE_DB_NAME}" >> /tmp/target-db.env
-                echo "SOURCE_DB_NAME: ${params.SOURCE_DB_NAME}"
-                echo "TARGET_DB_NAME: ${params.TARGET_DB_NAME}"
-                echo "SOURCE_DB_NAME1: ${SOURCE_DB_NAME1}"
-                echo "TARGET_DB_NAME1: ${TARGET_DB_NAME1}"
-            }
-        }
-        stage('SSH into server') {
-            steps {
-                sshagent(['refresh_ora19c_target_db_host']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ora19c@192.168.29.72 hostname'
+    stages{
+        stage('CreatingEnvFile') {
+                steps {
+                    sh "echo ORACLE_HOME=${ORACLE_HOME} > /tmp/target-db.env"
+                    sh "echo ORACLE_BASE=${ORACLE_BASE} >> /tmp/target-db.env"
+                    sh "echo PATH=${PATH} >> /tmp/target-db.env"
+                    sh "echo LD_LIBRARY_PATH=${LD_LIBRARY_PATH} >> /tmp/target-db.env"
+                    sh "echo ORACLE_SID=${params.TARGET_DB_NAME} >> /tmp/target-db.env"
+                    sh "echo SOURCE_DB_NAME: ${params.SOURCE_DB_NAME}"
+                    sh "echo TARGET_DB_NAME: ${params.TARGET_DB_NAME}"
+                    sh "echo SOURCE_DB_NAME1: ${SOURCE_DB_NAME1}"
+                    sh "echo TARGET_DB_NAME1: ${TARGET_DB_NAME1}"
                 }
             }
         }
-        stage('Shutdown Target DB') {
-            steps {
-                sshagent(['Shutdown Target DB']) {
-                    sh "echo "
-                    sh 'ssh -o StrictHostKeyChecking=no ora19c@192.168.29.72 hostname'
-                }
-            }
-        }
-    }
 }
-
 
