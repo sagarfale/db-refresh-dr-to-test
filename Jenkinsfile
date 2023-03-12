@@ -6,17 +6,21 @@ pipeline {
         string(name: 'TARGET_DB_NAME', description: 'Enter the value for target db name')
     }
     environment {
-	ORACLE_HOME=/home/ora19c/ora19c_home
-        ORACLE_BASE=/home/ora19c/ora19c_base
-        PATH=$ORACLE_HOME/bin:$PATH
-        LD_LIBRARY_PATH=/home/ora19c/ora19c_home/lib:$PATH
-    } 
+        ORACLE_HOME = '/home/ora19c/ora19c_home'
+        ORACLE_BASE = '/home/ora19c/ora19c_base'
+        PATH = "${env.ORACLE_HOME}/bin:${env.PATH}"
+        LD_LIBRARY_PATH = "${env.ORACLE_HOME}/lib:${env.LD_LIBRARY_PATH}"
+        ORACLE_SID = 'euprod'
+    }
+
     stages {
-        stage('Display Parameters') {
+        stage('Display Environment Variables') {
             steps {
-                echo "First Parameter: ${params.SOURCE_DB_NAME}"
-                echo "Second Parameter: ${params.TARGET_DB_NAME}"
-		echo "${ORACLE_HOME}
+                echo "ORACLE_HOME: ${env.ORACLE_HOME}"
+                echo "ORACLE_BASE: ${env.ORACLE_BASE}"
+                echo "PATH: ${env.PATH}"
+                echo "LD_LIBRARY_PATH: ${env.LD_LIBRARY_PATH}"
+                echo "ORACLE_SID: ${env.ORACLE_SID}"
             }
         }
     }
