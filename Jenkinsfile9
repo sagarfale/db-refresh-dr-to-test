@@ -24,7 +24,8 @@ pipeline {
                 echo "export SOURCE_DB_NAME1=${SOURCE_DB_NAME1}" >> /tmp/target-db.env
                 echo "export TARGET_DB_NAME1=${TARGET_DB_NAME1}" >> /tmp/target-db.env
                 '''
-                slackSend channel: 'devops-notifications', message: ('$TARGET_DB_NAME1') : this is CreatingEnvFile stage'
+                slackSend channel: 'devops-notifications', message: "${TARGET_DB_NAME1} : this is CreatingEnvFile stage"
+
             }
         }
 }
