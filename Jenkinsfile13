@@ -15,7 +15,7 @@ pipeline {
     stages{
         stage('RMAN-Clone') {
             steps {
-                scp ora19c@192.168.29.72:/tmp/rman.log /tmp
+                sh 'scp ora19c@192.168.29.72:/tmp/rman.log /tmp'
                 slackUploadFile channel: 'devops-notifications', filePath: '/tmp/rman.log', initialComment: 'Here is the log file'
             }
         }
