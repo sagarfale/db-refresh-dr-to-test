@@ -12,11 +12,12 @@ pipeline {
         SOURCE_DB_NAME1 = "${params.SOURCE_DB_NAME}"
         TARGET_DB_NAME1 = "${params.TARGET_DB_NAME}"
     }
-    stages{
-        stage('CreatingEnvFile') {
+    stages {
+        stage('CreatingEnvFile-${TARGET_DB_NAME1}') {
             steps {
                 slackSend channel: 'devops-notifications', message: "${TARGET_DB_NAME1} : this is CreatingEnvFile stage"
             }
-        }.label "${TARGET_DB_NAME1}"
+        }
     }
 }
+
