@@ -58,7 +58,8 @@ pipeline {
                 ssh ora19c@192.168.29.72 sh /tmp/clone.DBtemp.sh
                 scp ora19c@192.168.29.72:/tmp/rman.log /tmp
                 '''
-                slackSend channel: 'devops-notifications', message: 'EUTEST -> this is RMAN-Clone stage', fileUpload: '/tmp/rman.log'
+                slackSend channel: 'devops-notifications', message: 'EUTEST -> this is RMAN-Clone stage'
+                slackUploadFile filePath: '/tmp/rman.log', initialComment: 'Here is the log file'
             }
         }
     }
@@ -75,5 +76,4 @@ pipeline {
         }
     }
 }
-
 
