@@ -24,7 +24,7 @@ pipeline {
                 echo "export SOURCE_DB_NAME1=${SOURCE_DB_NAME1}" >> /tmp/target-db.env
                 echo "export TARGET_DB_NAME1=${TARGET_DB_NAME1}" >> /tmp/target-db.env
                 '''
-                slackSend channel: 'devops-notifications', message: "${TARGET_DB_NAME1} : this is CreatingEnvFile stage"
+                slackSend channel: 'devops-notifications', message: 'EUTEST -> this is CreatingEnvFile stage'
             }
         }
         stage('StopTargetDB') {
@@ -35,7 +35,7 @@ pipeline {
                 scp shutdown.DBtemp.sh ora19c@192.168.29.72:/tmp
                 ssh ora19c@192.168.29.72 sh /tmp/shutdown.DBtemp.sh
                 '''
-                slackSend channel: 'devops-notifications', message: "${TARGET_DB_NAME1} :this is StopTargetDB stage"
+                slackSend channel: 'devops-notifications', message: 'EUTEST ->  this is StopTargetDB stage'
             }
         }
         stage('StartDB-NOMount') {
@@ -46,7 +46,7 @@ pipeline {
                 scp startupnomount.DBtemp.sh ora19c@192.168.29.72:/tmp
                 ssh ora19c@192.168.29.72 sh /tmp/startupnomount.DBtemp.sh
                 '''
-                slackSend channel: 'devops-notifications', message: '$TARGET_DB_NAME1 : this is StartDB-NOMount stage"
+                slackSend channel: 'devops-notifications', message: 'EUTEST -> this is StartDB-NOMount stage'
             }
         }
         stage('RMAN-Clone') {
@@ -56,11 +56,13 @@ pipeline {
                 cat rman_clone.sh >> clone.DBtemp.sh
                 scp backup.rman clone.DBtemp.sh ora19c@192.168.29.72:/tmp
                 ssh ora19c@192.168.29.72 sh /tmp/clone.DBtemp.sh
+                scp ora19c@192.168.29.72:/tmp/rman.log /tmp
                 '''
-                slackSend channel: 'devops-notifications', message: '$TARGET_DB_NAME1 :this is RMAN-Clone stage"
+                slackSend channel: 'devops-notifications', message: 'EUTEST -> this is RMAN-Clone stage', fileUpload: '/tmp/rman.log'
             }
         }
     }
+
     post{
         always{
             echo "========always========"
