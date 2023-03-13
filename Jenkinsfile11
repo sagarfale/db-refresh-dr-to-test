@@ -16,7 +16,7 @@ pipeline {
         stage('RMAN-Clone') {
             steps {
                 slackSend channel: 'devops-notifications', message: 'EUTEST -> this is RMAN-Clone stage'
-                slackUploadFile filePath: '/tmp/rman.log', initialComment: 'Here is the log file'
+                slackUploadFile channel: 'devops-notifications', filePath: '/tmp/rman.log', initialComment: 'Here is the log file'
             }
         }
     }
